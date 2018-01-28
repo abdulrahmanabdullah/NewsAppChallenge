@@ -11,9 +11,7 @@ import android.provider.BaseColumns;
 public final class NewsContract
 {
 	
-	private NewsContract()
-	{
-	}
+	private NewsContract() { }
 	
 	public static final String CONTENT_AUTHORITY = "com.abdulrahmanjavanrd.newsappchallenge";
 	public static final Uri BASE_CONTENT_URI = Uri.parse("content://" + CONTENT_AUTHORITY);
