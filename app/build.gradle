@@ -25,6 +25,12 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     // Add Timber logger
     implementation 'com.jakewharton.timber:timber:4.6.0'
+    // AppBarLayout
+    implementation 'com.android.support:design:26.1.0'
+    // Add card view library
+    implementation 'com.android.support:cardview-v7:26.1.0'
+    // Picasso Library .
+    compile 'com.squareup.picasso:picasso:2.5.2'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 }
