@@ -15,6 +15,8 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+import timber.log.Timber;
+
 /**
  * @author  Abdulrahman.A && Abdullah on 28/01/2018.
  */
@@ -45,7 +47,7 @@ public class NewsAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        MyViewHolder holder  ;
+        final MyViewHolder holder  ;
         if (convertView == null ){
             convertView = LayoutInflater.from(context).inflate(R.layout.main_card,null);
             holder = new MyViewHolder() ;
@@ -77,6 +79,14 @@ public class NewsAdapter extends BaseAdapter {
         // set Date ..
         holder.articleDate.setText(currentNews.getArticleDate());
         // TODO:: create func for favorite image ..
+        holder.favoriteEvent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Timber.d("It's clicked .. ");
+                // change image to favorite image
+                holder.favoriteEvent.setBackgroundResource(R.drawable.favorite_icon);
+            }
+        });
         return convertView;
     }
 
