@@ -1,13 +1,15 @@
 package com.abdulrahmanjavanrd.newsappchallenge.adapter;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageButton;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.abdulrahmanjavanrd.newsappchallenge.R;
 import com.abdulrahmanjavanrd.newsappchallenge.model.News;
@@ -46,7 +48,7 @@ public class NewsAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         final MyViewHolder holder  ;
         if (convertView == null ){
             convertView = LayoutInflater.from(context).inflate(R.layout.main_card,null);
@@ -84,12 +86,32 @@ public class NewsAdapter extends BaseAdapter {
             public void onClick(View v) {
                 Timber.d("It's clicked .. ");
                 // change image to favorite image
-                holder.favoriteEvent.setBackgroundResource(R.drawable.favorite_icon);
+                String str = holder.favoriteEvent.getText().toString();
+                if (hasFavoriteArticle(str)){
+                    holder.favoriteEvent.setBackgroundResource(R.drawable.favorite_icon);
+                    holder.favoriteEvent.setText(context.getString(R.string.favorite_choice_no));
+                    Toast.makeText(context,context.getString(R.string.add_favorite_article),Toast.LENGTH_SHORT).show();
+                }else{
+                    holder.favoriteEvent.setBackgroundResource(R.drawable.unfavored_icon);
+                    holder.favoriteEvent.setText(context.getString(R.string.favorite_choice_yes));
+                    Toast.makeText(context,context.getString(R.string.remove_favorite_article),Toast.LENGTH_SHORT).show();
+                }
             }
         });
         return convertView;
     }
 
+    private boolean hasFavoriteArticle(String checkStatus ){
+        if (checkStatus.equalsIgnoreCase(context.getString(R.string.favorite_choice_yes))){
+            //TODO:: save current values to database .
+//            context.getContentResolver().insert();
+            return true;
+        }else{
+            //TODO:: remove current values from database ..
+//            context.getContentResolver().delete();
+            return false;
+        }
+    }
 
     // ViewHolder Class ..
     public static class MyViewHolder {
@@ -99,6 +121,6 @@ public class NewsAdapter extends BaseAdapter {
         TextView articleSection;
         TextView articlePublisher;
         TextView articleDate;
-        ImageButton favoriteEvent ;
+        Button favoriteEvent ;
     }
 }
