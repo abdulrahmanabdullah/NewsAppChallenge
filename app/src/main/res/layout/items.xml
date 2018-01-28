@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_vertical|fill_vertical"
+    android:orientation="vertical"
+    tools:layout_editor_absoluteY="81dp">
+
+
+    <ImageView
+        android:id="@+id/article_image"
+        android:layout_width="0dp"
+        android:layout_height="198dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:contentDescription="@string/article_image"
+        android:scaleType="centerCrop"
+        android:src="@drawable/guardian_intro"
+        app:layout_constraintDimensionRatio="w,16:9"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txv_article_Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="serif"
+        android:paddingEnd="16dp"
+        android:paddingStart="16dp"
+        android:text="@string/articleTitle"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/primaryText"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/article_image"
+        tools:text="Here Title of Article ." />
+
+    <TextView
+        android:id="@+id/txv_article_summary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:fontFamily="sans-serif"
+        android:paddingEnd="15dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingStart="15dp"
+        android:text="@string/article_summary"
+        android:textAlignment="center"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@color/summaryColor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txv_article_Title"
+        tools:text="Article Summary Here " />
+
+    <View
+        android:id="@+id/dividerView"
+        android:layout_width="384dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="24dp"
+        android:background="@color/dividerColor"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txv_article_summary" />
+
+    <TextView
+        android:id="@+id/txv_article_section"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="sans-serif"
+        android:text="@string/article_section"
+        android:textColor="@color/secondaryText"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dividerView"
+        tools:text="Sport" />
+
+    <TextView
+        android:id="@+id/txv_article_date"
+        android:layout_width="wrap_content"
+        android:layout_height="17dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="sans-serif"
+        android:text="@string/article_date"
+        android:textColor="@color/secondaryText"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="1-1-2018:16:15 Am" />
+
+    <TextView
+        android:id="@+id/txv_article_publisher"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="sans-serif"
+        android:paddingBottom="2dp"
+        android:text="@string/txt_publisher"
+        android:textColor="@color/secondaryText"
+        app:layout_constraintStart_toStartOf="@+id/txv_article_section"
+        app:layout_constraintTop_toBottomOf="@+id/txv_article_section"
+        tools:text="The Guardian" />
+
+    <Button
+        android:id="@+id/imageButton"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:text="@string/favorite_choice_yes"
+        android:textColor="#fff"
+        android:textSize="0sp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/txv_article_date"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dividerView"
+        android:background="@drawable/unfavored_icon"
+         />
+
+</android.support.constraint.ConstraintLayout>

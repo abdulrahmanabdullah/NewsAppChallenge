@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">NewsAppChallenge</string>
+    <string name="article_image">articale pic</string>
+    <string name="articleTitle">Article Title</string>
+    <string name="article_summary">Article summary</string>
+    <string name="article_section">Article section</string>
+    <string name="article_date">Article date</string>
+    <string name="txt_publisher">article publisher</string>
+    <string name="favorite_choice_yes">yes</string>
+    <string name="favorite_choice_no">no</string>
+    <string name="add_favorite_article"> Add as Favorites</string>
+    <string name="remove_favorite_article"> Unfavored</string>
 </resources>
