@@ -15,7 +15,7 @@ public final class NewsContract
 	
 	public static final String CONTENT_AUTHORITY = "com.abdulrahmanjavanrd.newsappchallenge";
 	public static final Uri BASE_CONTENT_URI = Uri.parse("content://" + CONTENT_AUTHORITY);
-	public static final String PATH_NEWS = "pets";
+	public static final String PATH_NEWS = "news";
 	
 	public static final class NewsEntry implements BaseColumns
 	{

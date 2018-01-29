@@ -1,10 +1,12 @@
 package com.abdulrahmanjavanrd.newsappchallenge.adapter;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -23,30 +25,18 @@ import timber.log.Timber;
  * @author  Abdulrahman.A && Abdullah on 28/01/2018.
  */
 
-public class NewsAdapter extends BaseAdapter {
+public class NewsAdapter  extends ArrayAdapter<News>
+{
     private Context  context ;
     private List<News> newsList ;
 
-    public NewsAdapter(Context context, List<News> newsList) {
+    public NewsAdapter(Context context, int resource, List<News> newsList) {
+        super(context, resource, newsList);
         this.context = context;
         this.newsList = newsList;
     }
-
-    @Override
-    public int getCount() {
-        return newsList.size();
-    }
-
-    @Override
-    public Object getItem(int position) {
-        return newsList.get(position);
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return 0;
-    }
-
+    
+    @NonNull
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         final MyViewHolder holder  ;
@@ -79,7 +69,7 @@ public class NewsAdapter extends BaseAdapter {
         // set publisher name .
         holder.articlePublisher.setText(currentNews.getArticlePublisher());
         // set Date ..
-        holder.articleDate.setText(currentNews.getArticleDate());
+        holder.articleDate.setText(currentNews.getArticleFormattedDate());
         // TODO:: create func for favorite image ..
         holder.favoriteEvent.setOnClickListener(new View.OnClickListener() {
             @Override

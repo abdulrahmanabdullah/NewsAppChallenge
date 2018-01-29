@@ -3,7 +3,6 @@ package com.abdulrahmanjavanrd.newsappchallenge.data;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.provider.BaseColumns;
 
 import com.abdulrahmanjavanrd.newsappchallenge.data.NewsContract.NewsEntry;
 
@@ -34,11 +33,11 @@ public class NewsDbHelper extends SQLiteOpenHelper
 			 + NewsEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT"
 			 + ", " + NewsEntry.COLUMN_NEWS_TITLE + " TEXT NOT NULL"
 			 + ", " + NewsEntry.COLUMN_NEWS_SECTION + " TEXT"
-			 + ", " + NewsEntry.COLUMN_NEWS_DATE + " INTEGER NOT NULL"
+			 + ", " + NewsEntry.COLUMN_NEWS_DATE + " TEXT NOT NULL"
 			 + ", " + NewsEntry.COLUMN_NEWS_AUTHOR + " TEXT"
 			 + ", " + NewsEntry.COLUMN_NEWS_IMAGE + " TEXT"
 			 + ", " + NewsEntry.COLUMN_NEWS_URL + " TEXT NOT NULL"
-			 + ", " + NewsEntry.COLUMN_NEWS_DESC + " TEXT"
+			 + ", " + NewsEntry.COLUMN_NEWS_DESC + " TEXT NOT NULL"
 			 + ");";
 
 		db.execSQL(SQL_CREATE_NEWS_TABLE);

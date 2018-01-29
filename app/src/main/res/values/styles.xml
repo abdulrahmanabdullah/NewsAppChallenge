@@ -7,5 +7,84 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
-
+    
+    <style name="NewsListView">
+        <item name="android:layout_marginBottom">8dp</item>
+        <item name="android:layout_marginEnd">0dp</item>
+        <item name="android:layout_marginStart">0dp</item>
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:divider">@null</item>
+        <item name="android:dividerHeight">8dp</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+    
+    <style name="ListItem">
+        <item name="android:background">@color/listItemBackgroundColor</item>
+    </style>
+    
+    <style name="EmptyMessageTextView">
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:padding">16dp</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textAppearance">?android:textAppearanceMedium</item>
+        <item name="android:animateLayoutChanges">true</item>
+    </style>
+    
+    <style name="TryAgainButton">
+        <item name="android:layout_margin">16dp</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:background">@color/colorPrimary</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textAppearance">?android:textAppearanceLarge</item>
+        <item name="android:visibility">gone</item>
+        <item name="android:text">@string/try_again</item>
+        <item name="android:animateLayoutChanges">true</item>
+    </style>
+    
+    <style name="SectionTextView">
+        <item name="android:layout_gravity">start|top</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+    
+    <style name="DateTextView">
+        <item name="android:layout_gravity">start|top</item>
+        <item name="android:textAlignment">textStart</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+    
+    <style name="TitleTextView">
+        <item name="android:layout_gravity">start|top</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:gravity">start</item>
+        <item name="android:padding">8dp</item>
+        <item name="android:textAlignment">textStart</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+    
+    <style name="AuthorsLabelTextView">
+        <item name="android:text">@string/by</item>
+        <item name="android:layout_gravity">start|top</item>
+        <item name="android:padding">8dp</item>
+        <item name="android:gravity">start|top</item>
+        <item name="android:textAlignment">gravity</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+    
+    <style name="AuthorsTextView">
+        <item name="android:layout_gravity">start</item>
+        <item name="android:paddingBottom">8dp</item>
+        <item name="android:paddingEnd">8dp</item>
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">12sp</item>
+    </style>
 </resources>
