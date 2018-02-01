@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.abdulrahmanjavanrd.newsappchallenge">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <application
         android:name=".timber.TimberApplication"
         android:allowBackup="true"
@@ -19,6 +21,13 @@
         </activity>
         <!--Add Intro Activity -->
         <activity android:name=".MainActivity"/>
+        <!-- Add Provider -->
+        <provider
+            android:authorities="com.abdulrahmanjavanrd.newsappchallenge"
+            android:name=".data.NewsProvider"
+            android:exported="false"/>
+
+        <activity android:name=".activites.SaveNewsActivity"/>
     </application>
 
 </manifest>

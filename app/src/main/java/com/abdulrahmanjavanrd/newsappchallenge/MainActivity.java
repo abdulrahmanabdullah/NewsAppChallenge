@@ -1,16 +1,19 @@
 package com.abdulrahmanjavanrd.newsappchallenge;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.ListView;
+import android.support.v7.widget.Toolbar;
 
-import com.abdulrahmanjavanrd.newsappchallenge.adapter.NewsAdapter;
-import com.abdulrahmanjavanrd.newsappchallenge.model.News;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import timber.log.Timber;
+import com.abdulrahmanjavanrd.newsappchallenge.fragments.FavoriteNewsFargment;
+import com.abdulrahmanjavanrd.newsappchallenge.fragments.LastNewsFragment;
+import com.abdulrahmanjavanrd.newsappchallenge.fragments.PopularNewsFragment;
+import com.abdulrahmanjavanrd.newsappchallenge.fragments.SaveArticleInDataBase;
+import com.abdulrahmanjavanrd.newsappchallenge.view.MyPager;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -18,21 +21,40 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        // TEst my work
-        List<News> news  = new ArrayList<>();
-        news.add(new News("test","someuri","Test summary ","sectionName","date here ","me"));
-        news.add(new News("test","someuri","Test summary ","sectionName","date here ","me"));
-        news.add(new News("test","someuri","Test summary ","sectionName","date here ","me"));
-        news.add(new News("test","someuri","Test summary ","sectionName","date here ","me"));
-        news.add(new News("test","someuri","Test summary ","sectionName","date here ","me"));
-        news.add(new News("test","someuri","Test summary ","sectionName","date here ","me"));
-        news.add(new News("test","someuri","Test summary ","sectionName","date here ","me"));
-        news.add(new News("test","someuri","Test summary ","sectionName","date here ","me"));
+        Toolbar toolBar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolBar);
+        ViewPager viewPager = findViewById(R.id.view_pager);
+        setupViewPager(viewPager);
+        TabLayout tabLayout = findViewById(R.id.tabs);
+        tabLayout.setupWithViewPager(viewPager);
+//        MyPager pager = new MyPager(getSupportFragmentManager());
+//        viewPager.setAdapter(pager);
+//        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+//        tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(viewPager));
 
+    }
 
-        NewsAdapter adapter = new NewsAdapter(this,news);
-        // ListView ...
-        ListView list = findViewById(R.id.list_items);
-        list.setAdapter(adapter);
+    private void setupViewPager(ViewPager viewPager){
+        MyPager pager = new MyPager(getSupportFragmentManager());
+        //todo::: check internet connection here ..
+        if (checkConnection(MainActivity.this)){
+            pager.addFragment(new LastNewsFragment(),"Last Article");
+        }else {
+            pager.addFragment(new SaveArticleInDataBase(),"Last Article");
+        }
+        pager.addFragment(new FavoriteNewsFargment(),"Favorite Article");
+        pager.addFragment(new PopularNewsFragment(),"Popular Article");
+        viewPager.setAdapter(pager);
+    }
+    private boolean checkConnection(Context context){
+        ConnectivityManager mConnective = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo wifi = mConnective.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+        NetworkInfo moblie = mConnective.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+        if (wifi != null && wifi.isConnected()){
+            return true;
+        }else if (moblie != null && moblie.isConnected()){
+            return true;
+        }
+        return false;
     }
 }

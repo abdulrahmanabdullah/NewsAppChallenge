@@ -4,18 +4,19 @@ import android.content.ContentResolver;
 import android.net.Uri;
 import android.provider.BaseColumns;
 
-/*
- * Created by Abdullah Aldobaie (akdPro) on 1/28/18 at 11:00 PM.
+/**
+ * @author  Abdullah.Aldobaie (akdPro) && Abdurlahman.A on 1/28/18 at 11:00 PM.
  */
 
 public final class NewsContract
 {
-	
-	private NewsContract() { }
+	private NewsContract() {
+		throw new AssertionError("No NewsContract instance");
+	}
 	
 	public static final String CONTENT_AUTHORITY = "com.abdulrahmanjavanrd.newsappchallenge";
 	public static final Uri BASE_CONTENT_URI = Uri.parse("content://" + CONTENT_AUTHORITY);
-	public static final String PATH_NEWS = "pets";
+	public static final String PATH_NEWS = "news";
 	
 	public static final class NewsEntry implements BaseColumns
 	{
@@ -40,5 +41,8 @@ public final class NewsContract
 		public final static String COLUMN_NEWS_AUTHOR = "author";
 		public final static String COLUMN_NEWS_URL = "url";
 		public final static String COLUMN_NEWS_DESC = "desc";
+
+
+
 	}
 }

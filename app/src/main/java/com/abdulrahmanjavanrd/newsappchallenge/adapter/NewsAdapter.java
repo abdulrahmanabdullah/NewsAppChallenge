@@ -1,7 +1,6 @@
 package com.abdulrahmanjavanrd.newsappchallenge.adapter;
 
 import android.content.Context;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +19,7 @@ import java.util.List;
 import timber.log.Timber;
 
 /**
- * @author  Abdulrahman.A && Abdullah on 28/01/2018.
+ * @author  Abdulrahman.A  on 28/01/2018.
  */
 
 public class NewsAdapter extends BaseAdapter {
@@ -73,7 +72,8 @@ public class NewsAdapter extends BaseAdapter {
         // set Article title .
         holder.articleTitle.setText(currentNews.getArticleTitle());
         // set Article summary ...
-        holder.articleSummary.setText(currentNews.getArticleSummary());
+        String simpleSummary = divideSummaryToQuarter(currentNews.getArticleSummary());
+        holder.articleSummary.setText(simpleSummary);
         // set Section name ..
         holder.articleSection.setText(currentNews.getArticleSection());
         // set publisher name .
@@ -89,10 +89,12 @@ public class NewsAdapter extends BaseAdapter {
                 String str = holder.favoriteEvent.getText().toString();
                 if (hasFavoriteArticle(str)){
                     holder.favoriteEvent.setBackgroundResource(R.drawable.favorite_icon);
+                    //TODO:: save the current position in Favorite database .
                     holder.favoriteEvent.setText(context.getString(R.string.favorite_choice_no));
                     Toast.makeText(context,context.getString(R.string.add_favorite_article),Toast.LENGTH_SHORT).show();
                 }else{
                     holder.favoriteEvent.setBackgroundResource(R.drawable.unfavored_icon);
+                    //TODO::remove  the current position form Favorite database .
                     holder.favoriteEvent.setText(context.getString(R.string.favorite_choice_yes));
                     Toast.makeText(context,context.getString(R.string.remove_favorite_article),Toast.LENGTH_SHORT).show();
                 }
@@ -104,7 +106,10 @@ public class NewsAdapter extends BaseAdapter {
     private boolean hasFavoriteArticle(String checkStatus ){
         if (checkStatus.equalsIgnoreCase(context.getString(R.string.favorite_choice_yes))){
             //TODO:: save current values to database .
-//            context.getContentResolver().insert();
+//            Uri uri = NewsContract.NewsEntry.CONTENT_URI ;
+//            ContentValues values = new ContentValues();
+//            values.
+//            context.getContentResolver().insert(uri,values);
             return true;
         }else{
             //TODO:: remove current values from database ..
@@ -122,5 +127,25 @@ public class NewsAdapter extends BaseAdapter {
         TextView articlePublisher;
         TextView articleDate;
         Button favoriteEvent ;
+    }
+    // To divide summary text  ..
+    private String divideSummaryToQuarter(String summary) {
+        String quarterText;
+        int length = (int) Math.floor(summary.length()); // to get only int numbers .
+        boolean MinVal = length >= 0 && length <= 6000;  // from  0 to 6000 char
+        boolean MaxVal = length >= 6000 && length <= 11000; // from  6000 to 110000 char .
+        boolean OverMaxVal = length >= 11000; // if length of String > 1100, Like 12000 ... etc  .
+        if (MinVal) {
+            quarterText = summary.substring(0, length / 16);
+        } else if (MaxVal) {
+            quarterText = summary.substring(0, length / 32);
+        } else if (OverMaxVal) {
+            quarterText = summary.substring(0, length / 64);
+        }
+        // if any text summary  under 6000 char .
+        else {
+            quarterText = summary.substring(0, length / 2);
+        }
+        return quarterText + " ...";
     }
 }

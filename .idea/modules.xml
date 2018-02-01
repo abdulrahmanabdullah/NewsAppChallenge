@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/NewsAppChallenge.iml" filepath="$PROJECT_DIR$/.idea/NewsAppChallenge.iml" />
       <module fileurl="file://$PROJECT_DIR$/NewsAppChallenge.iml" filepath="$PROJECT_DIR$/NewsAppChallenge.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://Z:\AndroidProject\NewsAppChallenge\.idea\NewsAppChallenge.iml" filepath="Z:\AndroidProject\NewsAppChallenge\.idea\NewsAppChallenge.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

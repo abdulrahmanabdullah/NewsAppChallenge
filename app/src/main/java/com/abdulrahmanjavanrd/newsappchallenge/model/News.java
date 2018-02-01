@@ -19,14 +19,19 @@ public class News {
     // Article Publisher ..
     private String articlePublisher ;
 
+
+    // web uri ..
+    private String articleUri ;
+
     // Constructor .
-    public News(String articleTitle, String articleImage, String articleSummary, String articleSection, String articleDate, String articlePublisher) {
+    public News(String articleTitle, String articleImage, String articleSummary, String articleSection, String articleDate, String articlePublisher,String uri) {
         this.articleTitle = articleTitle;
         this.articleImage = articleImage;
         this.articleSummary = articleSummary;
         this.articleSection = articleSection;
         this.articleDate = articleDate;
         this.articlePublisher = articlePublisher;
+        this.articleUri = uri ;
     }
 
 
@@ -54,5 +59,9 @@ public class News {
 
     public String getArticlePublisher() {
         return articlePublisher;
+    }
+
+    public String getArticleUri() {
+        return articleUri;
     }
 }
