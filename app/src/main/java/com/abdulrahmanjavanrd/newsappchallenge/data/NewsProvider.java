@@ -33,8 +33,30 @@ public class NewsProvider extends ContentProvider
 	private static final int NEWS_BY_ID = 1;
 	// When query by name .
 	private static final int NEWS_BY_NAME = 2;
+
+	// Increase one
+	private static final  int News_favorite = 10 ;
+	private static final  int News_favorite_by_id = 11 ;
+	private static final  int News_favorite_by_name = 12 ;
 	private static final UriMatcher sUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
-	
+
+
+	public static UriMatcher buildUriMatcher(){
+		String content = NewsContract.CONTENT_AUTHORITY;
+		UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
+		// New Articles  Table
+		uriMatcher.addURI(content,NewsContract.PATH_NEWS,LATEST_NEWS);
+		uriMatcher.addURI(content,NewsContract.PATH_NEWS+"/#",NEWS_BY_ID);
+		uriMatcher.addURI(content,NewsContract.PATH_NEWS+"/*",NEWS_BY_NAME);
+		// Favorite Table ..
+		uriMatcher.addURI(content,NewsContract.PATH_favorite,News_favorite);
+		uriMatcher.addURI(content,NewsContract.PATH_favorite+"/#",News_favorite_by_id);
+		uriMatcher.addURI(content,NewsContract.PATH_favorite+"/*",News_favorite_by_name);
+
+		return uriMatcher;
+	}
+
+	public static final UriMatcher myUriMatcher = buildUriMatcher();
 	static
 	{
 		sUriMatcher.addURI(NewsContract.CONTENT_AUTHORITY, NewsContract.PATH_NEWS, LATEST_NEWS);
@@ -200,12 +222,17 @@ public class NewsProvider extends ContentProvider
 	public String getType(Uri uri)
 	{
 		final int match = sUriMatcher.match(uri);
-		switch (match)
+		switch (myUriMatcher.match(uri))
 		{
-			case LATEST_NEWS:
+			case LATEST_NEWS: // articles table , all data .
 				return NewsEntry.CONTENT_LIST_TYPE;
 			case NEWS_BY_ID:
 				return NewsEntry.CONTENT_ITEM_TYPE;
+
+			case News_favorite : // favorite tables .. all data ..
+				return NewsContract.NewsFavorite.CONTENT_TYPE ;
+			case News_favorite_by_id:
+				return NewsContract.NewsFavorite.CONTENT_ITEM;
 			default:
 				throw new IllegalStateException("Unknown URI " + uri + " with match " + match);
 		}

@@ -4,10 +4,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.abdulrahmanjavanrd.newsappchallenge.fragments.FavoriteNewsFargment;
-import com.abdulrahmanjavanrd.newsappchallenge.fragments.LastNewsFragment;
-import com.abdulrahmanjavanrd.newsappchallenge.fragments.PopularNewsFragment;
-
 import java.util.ArrayList;
 import java.util.List;
 

@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.abdulrahmanjavanrd.newsappchallenge.R;
 import com.abdulrahmanjavanrd.newsappchallenge.adapter.NewsCursorAdapter;
+import com.abdulrahmanjavanrd.newsappchallenge.data.ArticlesContract;
 import com.abdulrahmanjavanrd.newsappchallenge.data.NewsContract;
 
 import timber.log.Timber;
@@ -47,16 +48,16 @@ Cursor cursor  ;
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         Timber.v("Start create Loader on Fragment SaveArticle");
-        Uri uri = NewsContract.NewsEntry.CONTENT_URI;
+        Uri uri = ArticlesContract.NewArticlesEntery.CONTENT_URI;
         String[] projection = {
-                NewsContract.NewsEntry._ID,
-                NewsContract.NewsEntry.COLUMN_NEWS_TITLE,
-                NewsContract.NewsEntry.COLUMN_NEWS_DESC,
-                NewsContract.NewsEntry.COLUMN_NEWS_IMAGE,
-                NewsContract.NewsEntry.COLUMN_NEWS_DATE,
-                NewsContract.NewsEntry.COLUMN_NEWS_AUTHOR,
-                NewsContract.NewsEntry.COLUMN_NEWS_SECTION,
-                NewsContract.NewsEntry.COLUMN_NEWS_URL
+                ArticlesContract.NewArticlesEntery._ID,
+                ArticlesContract.NewArticlesEntery.COLUMN_NEWS_TITLE,
+                ArticlesContract.NewArticlesEntery.COLUMN_NEWS_DESC,
+                ArticlesContract.NewArticlesEntery.COLUMN_NEWS_IMAGE,
+                ArticlesContract.NewArticlesEntery.COLUMN_NEWS_DATE,
+                ArticlesContract.NewArticlesEntery.COLUMN_NEWS_AUTHOR,
+                ArticlesContract.NewArticlesEntery.COLUMN_NEWS_SECTION,
+                ArticlesContract.NewArticlesEntery.COLUMN_NEWS_URL
         };
         String selection = NewsContract.NewsEntry._ID ;
         return  new CursorLoader(getContext(),uri,projection,selection,null,"date DESC") ;

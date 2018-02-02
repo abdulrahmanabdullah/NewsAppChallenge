@@ -1,6 +1,9 @@
 package com.abdulrahmanjavanrd.newsappchallenge.adapter;
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.net.Uri;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.abdulrahmanjavanrd.newsappchallenge.R;
+import com.abdulrahmanjavanrd.newsappchallenge.data.ArticlesContract;
 import com.abdulrahmanjavanrd.newsappchallenge.model.News;
 import com.squareup.picasso.Picasso;
 
@@ -47,7 +51,7 @@ public class NewsAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(final int position, View convertView, ViewGroup parent) {
+    public View getView( int position, View convertView, ViewGroup parent) {
         final MyViewHolder holder  ;
         if (convertView == null ){
             convertView = LayoutInflater.from(context).inflate(R.layout.main_card,null);
@@ -66,7 +70,7 @@ public class NewsAdapter extends BaseAdapter {
         }
 
         // create current object of News .
-        News currentNews = newsList.get(position);
+        final News currentNews = newsList.get(position);
         // set image For article
         Picasso.with(context).load(currentNews.getArticleImage()).into(holder.articleImage);
         // set Article title .
@@ -81,17 +85,27 @@ public class NewsAdapter extends BaseAdapter {
         // set Date ..
         holder.articleDate.setText(currentNews.getArticleDate());
         // TODO:: create func for favorite image ..
+        final String str = holder.favoriteEvent.getText().toString();
         holder.favoriteEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Timber.d("It's clicked .. ");
                 // change image to favorite image
-                String str = holder.favoriteEvent.getText().toString();
                 if (hasFavoriteArticle(str)){
                     holder.favoriteEvent.setBackgroundResource(R.drawable.favorite_icon);
                     //TODO:: save the current position in Favorite database .
+                    Uri  uri = ArticlesContract.FavoriteArticleEntery.CONTENT_URI;
+                    ContentValues values = new ContentValues();
+                    values.put(ArticlesContract.FavoriteArticleEntery.COLUMN_NEWS_IMAGE,currentNews.getArticleImage());
+                    values.put(ArticlesContract.FavoriteArticleEntery.COLUMN_NEWS_TITLE,currentNews.getArticleTitle());
+                    values.put(ArticlesContract.FavoriteArticleEntery.COLUMN_NEWS_DESC,currentNews.getArticleSummary());
+                    values.put(ArticlesContract.FavoriteArticleEntery.COLUMN_NEWS_SECTION,currentNews.getArticleSection());
+                    values.put(ArticlesContract.FavoriteArticleEntery.COLUMN_NEWS_DATE,currentNews.getArticleDate());
+                    values.put(ArticlesContract.FavoriteArticleEntery.COLUMN_NEWS_AUTHOR,currentNews.getArticlePublisher());
+                    // insert data to favorite table ..
+                    context.getContentResolver().insert(uri,values);
                     holder.favoriteEvent.setText(context.getString(R.string.favorite_choice_no));
-                    Toast.makeText(context,context.getString(R.string.add_favorite_article),Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context,context.getString(R.string.add_favorite_article)+"p = ",Toast.LENGTH_SHORT).show();
                 }else{
                     holder.favoriteEvent.setBackgroundResource(R.drawable.unfavored_icon);
                     //TODO::remove  the current position form Favorite database .
@@ -104,12 +118,13 @@ public class NewsAdapter extends BaseAdapter {
     }
 
     private boolean hasFavoriteArticle(String checkStatus ){
-        if (checkStatus.equalsIgnoreCase(context.getString(R.string.favorite_choice_yes))){
+        if (checkStatus.equals(context.getString(R.string.favorite_choice_yes)) && !TextUtils.isEmpty(checkStatus)){
             //TODO:: save current values to database .
 //            Uri uri = NewsContract.NewsEntry.CONTENT_URI ;
 //            ContentValues values = new ContentValues();
 //            values.
 //            context.getContentResolver().insert(uri,values);
+
             return true;
         }else{
             //TODO:: remove current values from database ..
@@ -117,6 +132,7 @@ public class NewsAdapter extends BaseAdapter {
             return false;
         }
     }
+
 
     // ViewHolder Class ..
     public static class MyViewHolder {
@@ -148,4 +164,11 @@ public class NewsAdapter extends BaseAdapter {
         }
         return quarterText + " ...";
     }
+
+//    public void getButtonText(){
+//            MyViewHolder holder = new MyViewHolder();
+//           String str =  holder.favoriteEvent.getText().toString();
+//        Toast.makeText(context,"Clicked " + str,Toast.LENGTH_SHORT).show();
+//
+//    }
 }

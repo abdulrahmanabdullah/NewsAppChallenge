@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.abdulrahmanjavanrd.newsappchallenge.data.ArticlesContract;
 import com.abdulrahmanjavanrd.newsappchallenge.data.NewsContract;
 import com.abdulrahmanjavanrd.newsappchallenge.model.News;
 
@@ -182,17 +183,17 @@ public class QueryUtils {
                     String articleSummary = secondIndex.getString("bodyTextSummary");
                     // Save all data in data Base ..
                     if (showDataBeforeSave(webTitle)){
-                    Timber.v("yes ... it's New  ");
-                    values.put(COLUMN_NEWS_TITLE,webTitle);
-                    values.put(COLUMN_NEWS_SECTION,sectionName);
-                    values.put(COLUMN_NEWS_DATE,date);
-                    values.put(COLUMN_NEWS_IMAGE,thumbnail);
-                    values.put(COLUMN_NEWS_AUTHOR,webPublisher);
-                    values.put(COLUMN_NEWS_URL,webUrl);
-                    values.put(COLUMN_NEWS_DESC,articleSummary);
-                    Uri uri = NewsContract.NewsEntry.CONTENT_URI ;
-                   Uri rowAdd =  context.getContentResolver().insert(uri,values);
-                      Timber.v("Inserted .. " + rowAdd);
+                        Timber.v("yes ... it's New  ");
+                        values.put(COLUMN_NEWS_TITLE, webTitle);
+                        values.put(COLUMN_NEWS_SECTION, sectionName);
+                        values.put(COLUMN_NEWS_DATE, date);
+                        values.put(COLUMN_NEWS_IMAGE, thumbnail);
+                        values.put(COLUMN_NEWS_AUTHOR, webPublisher);
+                        values.put(COLUMN_NEWS_URL, webUrl);
+                        values.put(COLUMN_NEWS_DESC, articleSummary);
+                        Uri uri = ArticlesContract.NewArticlesEntery.CONTENT_URI;
+                        Uri rowAdd = context.getContentResolver().insert(uri, values);
+                        Timber.v("Inserted .. " + rowAdd);
                     }else{
                         Timber.v("No This  "+webTitle + " Exists.");
                     }
@@ -213,16 +214,18 @@ public class QueryUtils {
 //    }
 
     private static boolean showDataBeforeSave(String where){
-        String[] projection ={NewsContract.NewsEntry._ID, NewsContract.NewsEntry.COLUMN_NEWS_TITLE};
-        String selection = NewsContract.NewsEntry.COLUMN_NEWS_TITLE+" = ?";
+        // Insert new data in New articles table ..
+        String[] projection ={ArticlesContract.NewArticlesEntery._ID,ArticlesContract.NewArticlesEntery.COLUMN_NEWS_TITLE,
+        ArticlesContract.NewArticlesEntery.COLUMN_NEWS_DESC};
+        String selection = ArticlesContract.NewArticlesEntery.COLUMN_NEWS_TITLE+" = ?";
         String[] selectionArgs = {where};
         Timber.v("Title receive = "+where);
-        Uri uri = Uri.withAppendedPath(NewsContract.NewsEntry.CONTENT_URI, NewsContract.NewsEntry.COLUMN_NEWS_TITLE);
+        Uri uri = Uri.withAppendedPath(ArticlesContract.NewArticlesEntery.CONTENT_URI, ArticlesContract.NewArticlesEntery.COLUMN_NEWS_TITLE);
         Timber.v("uri = "+uri);
-        Cursor cursor = context.getContentResolver().query(NewsContract.NewsEntry.CONTENT_URI,projection,selection,selectionArgs,"DESC");
+        Cursor cursor = context.getContentResolver().query(ArticlesContract.NewArticlesEntery.CONTENT_URI,projection,selection,selectionArgs,"DESC");
         Timber.v("Cursor = "+cursor.getCount());
         if (cursor !=null && cursor.moveToFirst()){
-            String title = cursor.getString(cursor.getColumnIndex(NewsContract.NewsEntry.COLUMN_NEWS_TITLE));
+            String title = cursor.getString(cursor.getColumnIndex(ArticlesContract.NewArticlesEntery.COLUMN_NEWS_TITLE));
             Timber.v("Title Found = "+title);
             if (title.equalsIgnoreCase(where)){
                return false;

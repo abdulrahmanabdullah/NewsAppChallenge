@@ -24,7 +24,7 @@
         <!-- Add Provider -->
         <provider
             android:authorities="com.abdulrahmanjavanrd.newsappchallenge"
-            android:name=".data.NewsProvider"
+            android:name=".provider.ArticlesProvider"
             android:exported="false"/>
 
         <activity android:name=".activites.SaveNewsActivity"/>

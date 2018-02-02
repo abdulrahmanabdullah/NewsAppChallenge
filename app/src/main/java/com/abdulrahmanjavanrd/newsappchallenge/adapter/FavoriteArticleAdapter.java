@@ -1,38 +1,29 @@
 package com.abdulrahmanjavanrd.newsappchallenge.adapter;
 
-import android.app.LoaderManager;
-import android.content.AsyncTaskLoader;
 import android.content.Context;
-import android.content.Loader;
 import android.database.Cursor;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CursorAdapter;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.abdulrahmanjavanrd.newsappchallenge.R;
 import com.abdulrahmanjavanrd.newsappchallenge.data.ArticlesContract;
-import com.abdulrahmanjavanrd.newsappchallenge.data.NewsContract;
 import com.squareup.picasso.Picasso;
 
-import timber.log.Timber;
-
 /**
- * Created by nfs05 on 29/01/2018.
+ * Created by nfs05 on 02/02/2018.
  */
 
-public class NewsCursorAdapter extends CursorAdapter {
-
+public class FavoriteArticleAdapter extends CursorAdapter {
 
     Context context ;
-    public NewsCursorAdapter(Context context, Cursor c) {
-        super(context, c,0);
-        this.context = context;
+    public FavoriteArticleAdapter(Context context, Cursor c) {
+        super(context, c, 0);
+        this.context = context ;
     }
 
     @Override
@@ -47,31 +38,30 @@ public class NewsCursorAdapter extends CursorAdapter {
         TextView articleSummary = view.findViewById(R.id.txv_article_summary);
         TextView articleSection = view.findViewById(R.id.txv_article_section);
         TextView articleDate = view.findViewById(R.id.txv_article_date);
-        TextView aticlePublisher = view.findViewById(R.id.txv_article_publisher);
+        TextView articleAuthor = view.findViewById(R.id.txv_article_publisher);
         Button imageButton = view.findViewById(R.id.imageButton);
 
 
-        int _Iamge = cursor.getColumnIndex(ArticlesContract.NewArticlesEntery.COLUMN_NEWS_IMAGE);
-        int _Title = cursor.getColumnIndex(ArticlesContract.NewArticlesEntery.COLUMN_NEWS_TITLE);
-        int _Summary = cursor.getColumnIndex(ArticlesContract.NewArticlesEntery.COLUMN_NEWS_DESC);
-        int _Section = cursor.getColumnIndex(ArticlesContract.NewArticlesEntery.COLUMN_NEWS_SECTION);
-        int _Date = cursor.getColumnIndex(ArticlesContract.NewArticlesEntery.COLUMN_NEWS_DATE);
-        int _Publisher = cursor.getColumnIndex(ArticlesContract.NewArticlesEntery.COLUMN_NEWS_AUTHOR);
-        int _Uri = cursor.getColumnIndex(ArticlesContract.NewArticlesEntery.COLUMN_NEWS_URL);
+        int imageIndex = cursor.getColumnIndex(ArticlesContract.FavoriteArticleEntery.COLUMN_NEWS_IMAGE);
+        int titleIndex = cursor.getColumnIndex(ArticlesContract.FavoriteArticleEntery.COLUMN_NEWS_TITLE);
+        int summaryIndex = cursor.getColumnIndex(ArticlesContract.FavoriteArticleEntery.COLUMN_NEWS_DESC);
+        int sectionIndex = cursor.getColumnIndex(ArticlesContract.FavoriteArticleEntery.COLUMN_NEWS_SECTION);
+        int authorIndex = cursor.getColumnIndex(ArticlesContract.FavoriteArticleEntery.COLUMN_NEWS_AUTHOR);
+        int dateIndex = cursor.getColumnIndex(ArticlesContract.FavoriteArticleEntery.COLUMN_NEWS_DATE);
 
-        String image=cursor.getString(_Iamge);
-        Picasso.with(context).load(image).placeholder(R.drawable.image_not_available).into(img);
-        String title = cursor.getString(_Title);
+
+        String image = cursor.getString(imageIndex);
+        Picasso.with(context).load(image).into(img);
+        String title = cursor.getString(titleIndex);
         articleTitle.setText(title);
-        String summary = cursor.getString(_Summary);
+        String summary = cursor.getString(summaryIndex);
         articleSummary.setText(divideSummaryToQuarter(summary));
-        String section = cursor.getString(_Section);
+        String section = cursor.getString(sectionIndex);
         articleSection.setText(section);
-        String date = cursor.getString(_Date);
+        String author = cursor.getString(authorIndex);
+        articleAuthor.setText(author);
+        String date = cursor.getString(dateIndex);
         articleDate.setText(date);
-        String publisher = cursor.getString(_Publisher);
-        aticlePublisher.setText(publisher);
-        String uri = cursor.getString(_Uri);
         imageButton.setVisibility(View.GONE);
     }
     // To divide summary text  ..

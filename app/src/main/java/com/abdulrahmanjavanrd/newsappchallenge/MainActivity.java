@@ -9,7 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 
-import com.abdulrahmanjavanrd.newsappchallenge.fragments.FavoriteNewsFargment;
+import com.abdulrahmanjavanrd.newsappchallenge.fragments.FavoriteNewsFragment;
 import com.abdulrahmanjavanrd.newsappchallenge.fragments.LastNewsFragment;
 import com.abdulrahmanjavanrd.newsappchallenge.fragments.PopularNewsFragment;
 import com.abdulrahmanjavanrd.newsappchallenge.fragments.SaveArticleInDataBase;
@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         }else {
             pager.addFragment(new SaveArticleInDataBase(),"Last Article");
         }
-        pager.addFragment(new FavoriteNewsFargment(),"Favorite Article");
+        pager.addFragment(new FavoriteNewsFragment(),"favorite Article");
         pager.addFragment(new PopularNewsFragment(),"Popular Article");
         viewPager.setAdapter(pager);
     }
