@@ -36,14 +36,14 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager){
         MyPager pager = new MyPager(getSupportFragmentManager());
-        //todo::: check internet connection here ..
+        //todo::: check internet connection here..Done
         if (checkConnection(MainActivity.this)){
-            pager.addFragment(new LastNewsFragment(),"Last Article");
+            pager.addFragment(new LastNewsFragment(),getString(R.string.last_news));
         }else {
-            pager.addFragment(new SaveArticleInDataBase(),"Last Article");
+            pager.addFragment(new SaveArticleInDataBase(),getString(R.string.last_news));
         }
-        pager.addFragment(new FavoriteNewsFragment(),"favorite Article");
-        pager.addFragment(new PopularNewsFragment(),"Popular Article");
+        pager.addFragment(new FavoriteNewsFragment(),getString(R.string.favorite_article));
+        pager.addFragment(new PopularNewsFragment(),getString(R.string.most_read));
         viewPager.setAdapter(pager);
     }
     private boolean checkConnection(Context context){

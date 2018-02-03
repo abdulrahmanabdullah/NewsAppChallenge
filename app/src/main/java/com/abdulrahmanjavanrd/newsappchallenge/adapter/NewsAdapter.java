@@ -22,6 +22,13 @@ import java.util.List;
 
 import timber.log.Timber;
 
+import static com.abdulrahmanjavanrd.newsappchallenge.data.ArticlesContract.FavoriteArticleEntery.COLUMN_NEWS_AUTHOR;
+import static com.abdulrahmanjavanrd.newsappchallenge.data.ArticlesContract.FavoriteArticleEntery.COLUMN_NEWS_DATE;
+import static com.abdulrahmanjavanrd.newsappchallenge.data.ArticlesContract.FavoriteArticleEntery.COLUMN_NEWS_DESC;
+import static com.abdulrahmanjavanrd.newsappchallenge.data.ArticlesContract.FavoriteArticleEntery.COLUMN_NEWS_IMAGE;
+import static com.abdulrahmanjavanrd.newsappchallenge.data.ArticlesContract.FavoriteArticleEntery.COLUMN_NEWS_SECTION;
+import static com.abdulrahmanjavanrd.newsappchallenge.data.ArticlesContract.FavoriteArticleEntery.COLUMN_NEWS_TITLE;
+
 /**
  * @author  Abdulrahman.A  on 28/01/2018.
  */
@@ -29,7 +36,6 @@ import timber.log.Timber;
 public class NewsAdapter extends BaseAdapter {
     private Context  context ;
     private List<News> newsList ;
-
     public NewsAdapter(Context context, List<News> newsList) {
         this.context = context;
         this.newsList = newsList;
@@ -51,7 +57,7 @@ public class NewsAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView( int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         final MyViewHolder holder  ;
         if (convertView == null ){
             convertView = LayoutInflater.from(context).inflate(R.layout.main_card,null);
@@ -84,28 +90,16 @@ public class NewsAdapter extends BaseAdapter {
         holder.articlePublisher.setText(currentNews.getArticlePublisher());
         // set Date ..
         holder.articleDate.setText(currentNews.getArticleDate());
-        // TODO:: create func for favorite image ..
-        final String str = holder.favoriteEvent.getText().toString();
         holder.favoriteEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Timber.d("It's clicked .. ");
                 // change image to favorite image
-                if (hasFavoriteArticle(str)){
+                String str = holder.favoriteEvent.getText().toString();
+                if (hasFavoriteArticle(str,position)){
                     holder.favoriteEvent.setBackgroundResource(R.drawable.favorite_icon);
-                    //TODO:: save the current position in Favorite database .
-                    Uri  uri = ArticlesContract.FavoriteArticleEntery.CONTENT_URI;
-                    ContentValues values = new ContentValues();
-                    values.put(ArticlesContract.FavoriteArticleEntery.COLUMN_NEWS_IMAGE,currentNews.getArticleImage());
-                    values.put(ArticlesContract.FavoriteArticleEntery.COLUMN_NEWS_TITLE,currentNews.getArticleTitle());
-                    values.put(ArticlesContract.FavoriteArticleEntery.COLUMN_NEWS_DESC,currentNews.getArticleSummary());
-                    values.put(ArticlesContract.FavoriteArticleEntery.COLUMN_NEWS_SECTION,currentNews.getArticleSection());
-                    values.put(ArticlesContract.FavoriteArticleEntery.COLUMN_NEWS_DATE,currentNews.getArticleDate());
-                    values.put(ArticlesContract.FavoriteArticleEntery.COLUMN_NEWS_AUTHOR,currentNews.getArticlePublisher());
-                    // insert data to favorite table ..
-                    context.getContentResolver().insert(uri,values);
+                    Toast.makeText(context,context.getString(R.string.add_favorite_article),Toast.LENGTH_SHORT).show();
                     holder.favoriteEvent.setText(context.getString(R.string.favorite_choice_no));
-                    Toast.makeText(context,context.getString(R.string.add_favorite_article)+"p = ",Toast.LENGTH_SHORT).show();
                 }else{
                     holder.favoriteEvent.setBackgroundResource(R.drawable.unfavored_icon);
                     //TODO::remove  the current position form Favorite database .
@@ -117,33 +111,32 @@ public class NewsAdapter extends BaseAdapter {
         return convertView;
     }
 
-    private boolean hasFavoriteArticle(String checkStatus ){
+    private boolean hasFavoriteArticle(String checkStatus,int position ){
+        Uri  uri = ArticlesContract.FavoriteArticleEntery.CONTENT_URI;
+        News mCurrentNews =  newsList.get(position);
         if (checkStatus.equals(context.getString(R.string.favorite_choice_yes)) && !TextUtils.isEmpty(checkStatus)){
-            //TODO:: save current values to database .
-//            Uri uri = NewsContract.NewsEntry.CONTENT_URI ;
-//            ContentValues values = new ContentValues();
-//            values.
-//            context.getContentResolver().insert(uri,values);
-
+            //TODO:: save current values to database
+            ContentValues values = new ContentValues();
+            values.put(COLUMN_NEWS_IMAGE,mCurrentNews.getArticleImage());
+            values.put(COLUMN_NEWS_TITLE,mCurrentNews.getArticleTitle());
+            values.put(COLUMN_NEWS_DESC,mCurrentNews.getArticleSummary());
+            values.put(COLUMN_NEWS_SECTION,mCurrentNews.getArticleSection());
+            values.put(COLUMN_NEWS_DATE,mCurrentNews.getArticleDate());
+            values.put(COLUMN_NEWS_AUTHOR,mCurrentNews.getArticlePublisher());
+            // insert data to favorite table ..
+            context.getContentResolver().insert(uri,values);
             return true;
         }else{
-            //TODO:: remove current values from database ..
-//            context.getContentResolver().delete();
+            //TODO:: remove current values from database .. Done
+            String selection = COLUMN_NEWS_TITLE+" = ?";
+            String[] selectionArgs = {mCurrentNews.getArticleTitle()};
+            context.getContentResolver().delete(uri,selection,selectionArgs);
+//            Toast.makeText(context," deleted .",Toast.LENGTH_SHORT).show();
             return false;
         }
     }
 
 
-    // ViewHolder Class ..
-    public static class MyViewHolder {
-        ImageView articleImage ;
-        TextView articleTitle;
-        TextView articleSummary;
-        TextView articleSection;
-        TextView articlePublisher;
-        TextView articleDate;
-        Button favoriteEvent ;
-    }
     // To divide summary text  ..
     private String divideSummaryToQuarter(String summary) {
         String quarterText;
@@ -158,10 +151,20 @@ public class NewsAdapter extends BaseAdapter {
         } else if (OverMaxVal) {
             quarterText = summary.substring(0, length / 64);
         }
-        // if any text summary  under 6000 char .
+        // if any text summary under 6000 char .
         else {
             quarterText = summary.substring(0, length / 2);
         }
         return quarterText + " ...";
+    }
+    // ViewHolder Class ..
+    public static class MyViewHolder {
+        ImageView articleImage ;
+        TextView articleTitle;
+        TextView articleSummary;
+        TextView articleSection;
+        TextView articlePublisher;
+        TextView articleDate;
+        Button favoriteEvent ;
     }
 }
