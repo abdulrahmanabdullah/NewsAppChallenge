@@ -40,6 +40,11 @@ FavoriteArticleAdapter adapter ;
 
 
     @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         Timber.v("Start Favorite fragment , onCreateLoader work ");
         String[] projection = {

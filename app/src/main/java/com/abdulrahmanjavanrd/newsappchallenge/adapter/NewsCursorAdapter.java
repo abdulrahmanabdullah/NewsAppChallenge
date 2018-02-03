@@ -1,26 +1,18 @@
 package com.abdulrahmanjavanrd.newsappchallenge.adapter;
 
-import android.app.LoaderManager;
-import android.content.AsyncTaskLoader;
 import android.content.Context;
-import android.content.Loader;
 import android.database.Cursor;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CursorAdapter;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.abdulrahmanjavanrd.newsappchallenge.R;
 import com.abdulrahmanjavanrd.newsappchallenge.data.ArticlesContract;
-import com.abdulrahmanjavanrd.newsappchallenge.data.NewsContract;
 import com.squareup.picasso.Picasso;
-
-import timber.log.Timber;
 
 /**
  * Created by nfs05 on 29/01/2018.

@@ -18,7 +18,6 @@ import android.widget.Toast;
 import com.abdulrahmanjavanrd.newsappchallenge.R;
 import com.abdulrahmanjavanrd.newsappchallenge.adapter.NewsCursorAdapter;
 import com.abdulrahmanjavanrd.newsappchallenge.data.ArticlesContract;
-import com.abdulrahmanjavanrd.newsappchallenge.data.NewsContract;
 
 import timber.log.Timber;
 
@@ -59,7 +58,7 @@ Cursor cursor  ;
                 ArticlesContract.NewArticlesEntery.COLUMN_NEWS_SECTION,
                 ArticlesContract.NewArticlesEntery.COLUMN_NEWS_URL
         };
-        String selection = NewsContract.NewsEntry._ID ;
+        String selection = ArticlesContract.NewArticlesEntery._ID ;
         return  new CursorLoader(getContext(),uri,projection,selection,null,"date DESC") ;
     }
 

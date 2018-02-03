@@ -5,10 +5,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.abdulrahmanjavanrd.newsappchallenge.data.ArticlesContract;
-import com.abdulrahmanjavanrd.newsappchallenge.data.NewsContract;
 import com.abdulrahmanjavanrd.newsappchallenge.model.News;
 
 import org.json.JSONArray;
@@ -28,14 +26,13 @@ import java.util.List;
 
 import timber.log.Timber;
 
-import static com.abdulrahmanjavanrd.newsappchallenge.data.NewsContract.NewsEntry.COLUMN_NEWS_AUTHOR;
-import static com.abdulrahmanjavanrd.newsappchallenge.data.NewsContract.NewsEntry.COLUMN_NEWS_DATE;
-import static com.abdulrahmanjavanrd.newsappchallenge.data.NewsContract.NewsEntry.COLUMN_NEWS_DESC;
-import static com.abdulrahmanjavanrd.newsappchallenge.data.NewsContract.NewsEntry.COLUMN_NEWS_IMAGE;
-import static com.abdulrahmanjavanrd.newsappchallenge.data.NewsContract.NewsEntry.COLUMN_NEWS_SECTION;
-import static com.abdulrahmanjavanrd.newsappchallenge.data.NewsContract.NewsEntry.COLUMN_NEWS_TITLE;
-import static com.abdulrahmanjavanrd.newsappchallenge.data.NewsContract.NewsEntry.COLUMN_NEWS_URL;
-import static java.security.AccessController.getContext;
+import static com.abdulrahmanjavanrd.newsappchallenge.data.ArticlesContract.NewArticlesEntery.COLUMN_NEWS_DATE;
+import static com.abdulrahmanjavanrd.newsappchallenge.data.ArticlesContract.NewArticlesEntery.COLUMN_NEWS_DESC;
+import static com.abdulrahmanjavanrd.newsappchallenge.data.ArticlesContract.NewArticlesEntery.COLUMN_NEWS_IMAGE;
+import static com.abdulrahmanjavanrd.newsappchallenge.data.ArticlesContract.NewArticlesEntery.COLUMN_NEWS_TITLE;
+import static com.abdulrahmanjavanrd.newsappchallenge.data.ArticlesContract.NewArticlesEntery.COLUMN_NEWS_URL;
+import static com.abdulrahmanjavanrd.newsappchallenge.data.ArticlesContract.NewArticlesEntery.COLUMN_NEWS_AUTHOR;
+import static com.abdulrahmanjavanrd.newsappchallenge.data.ArticlesContract.NewArticlesEntery.COLUMN_NEWS_SECTION;
 
 
 /**
@@ -215,17 +212,17 @@ public class QueryUtils {
 
     private static boolean showDataBeforeSave(String where){
         // Insert new data in New articles table ..
-        String[] projection ={ArticlesContract.NewArticlesEntery._ID,ArticlesContract.NewArticlesEntery.COLUMN_NEWS_TITLE,
-        ArticlesContract.NewArticlesEntery.COLUMN_NEWS_DESC};
-        String selection = ArticlesContract.NewArticlesEntery.COLUMN_NEWS_TITLE+" = ?";
+        String[] projection ={ArticlesContract.NewArticlesEntery._ID, COLUMN_NEWS_TITLE,
+        COLUMN_NEWS_DESC};
+        String selection = COLUMN_NEWS_TITLE+" = ?";
         String[] selectionArgs = {where};
         Timber.v("Title receive = "+where);
-        Uri uri = Uri.withAppendedPath(ArticlesContract.NewArticlesEntery.CONTENT_URI, ArticlesContract.NewArticlesEntery.COLUMN_NEWS_TITLE);
+        Uri uri = Uri.withAppendedPath(ArticlesContract.NewArticlesEntery.CONTENT_URI, COLUMN_NEWS_TITLE);
         Timber.v("uri = "+uri);
         Cursor cursor = context.getContentResolver().query(ArticlesContract.NewArticlesEntery.CONTENT_URI,projection,selection,selectionArgs,"DESC");
         Timber.v("Cursor = "+cursor.getCount());
         if (cursor !=null && cursor.moveToFirst()){
-            String title = cursor.getString(cursor.getColumnIndex(ArticlesContract.NewArticlesEntery.COLUMN_NEWS_TITLE));
+            String title = cursor.getString(cursor.getColumnIndex(COLUMN_NEWS_TITLE));
             Timber.v("Title Found = "+title);
             if (title.equalsIgnoreCase(where)){
                return false;
