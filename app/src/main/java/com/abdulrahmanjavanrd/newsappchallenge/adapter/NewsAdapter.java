@@ -164,11 +164,4 @@ public class NewsAdapter extends BaseAdapter {
         }
         return quarterText + " ...";
     }
-
-//    public void getButtonText(){
-//            MyViewHolder holder = new MyViewHolder();
-//           String str =  holder.favoriteEvent.getText().toString();
-//        Toast.makeText(context,"Clicked " + str,Toast.LENGTH_SHORT).show();
-//
-//    }
 }
