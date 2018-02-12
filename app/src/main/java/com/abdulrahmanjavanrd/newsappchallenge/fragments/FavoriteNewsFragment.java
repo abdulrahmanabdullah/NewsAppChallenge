@@ -30,6 +30,7 @@ FavoriteArticleAdapter adapter ;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        Timber.v("Create FavoriteNews ");
        View v = inflater.inflate(R.layout.favorite_articles_fragment,container,false);
         adapter = new FavoriteArticleAdapter(getContext(),null);
        listView = v.findViewById(R.id.list_view_items);

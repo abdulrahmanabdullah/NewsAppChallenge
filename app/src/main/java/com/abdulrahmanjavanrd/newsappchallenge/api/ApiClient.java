@@ -12,5 +12,5 @@ public interface ApiClient {
 
 
     @GET("search?q=/tags")
-    Call<ArticlesWithRetroFit> getArticles(@QueryMap HashMap<String,String> filter);
+    Call<ArticlesWithRetroFit.RootTag> getArticles(@QueryMap HashMap<String,String> filter);
 }

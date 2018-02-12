@@ -15,6 +15,7 @@ import com.abdulrahmanjavanrd.newsappchallenge.api.ApiClient;
 import com.abdulrahmanjavanrd.newsappchallenge.model.ArticlesWithRetroFit;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Timer;
 
 import retrofit2.Call;
@@ -45,10 +46,7 @@ public class PopularNewsFragment extends Fragment{
         mRecyclerView = v.findViewById(R.id.recycler);
         mLayoutManager= new LinearLayoutManager(getContext());
         mRecyclerView.setLayoutManager(mLayoutManager);
-        // initializing myRecyclerAdapter ..
-        mAdapter = new RecyclerAdapter();
         setupRetrofit();
-
         return v;
 
     }
@@ -69,18 +67,23 @@ public class PopularNewsFragment extends Fragment{
         filter.put("page-size","50");
         filter.put("show-blocks","body");
         filter.put("show-tags","contributor");
-        Call<ArticlesWithRetroFit> mCall = apiClient.getArticles(filter);
 
-        mCall.enqueue(new Callback<ArticlesWithRetroFit>() {
+        Call<ArticlesWithRetroFit.RootTag> rootTagCall = apiClient.getArticles(filter);
+        rootTagCall.enqueue(new Callback<ArticlesWithRetroFit.RootTag>() {
             @Override
-            public void onResponse(Call<ArticlesWithRetroFit> call, Response<ArticlesWithRetroFit> response) {
-                Timber.v("Response is okay "+response.toString());
+            public void onResponse(Call<ArticlesWithRetroFit.RootTag> call, Response<ArticlesWithRetroFit.RootTag> response) {
+                ArticlesWithRetroFit.RootTag rootTag = response.body();
+                ArticlesWithRetroFit.InnerResposeTag mainRespose = rootTag.getInnerRespose();
+                List<ArticlesWithRetroFit.ResultsTag> resultsTagList = mainRespose.getInnerResultsList();
+                mAdapter = new RecyclerAdapter(getContext(),resultsTagList);
+                mRecyclerView.setAdapter(mAdapter);
+                mRecyclerView.setLayoutManager(mLayoutManager);
             }
 
             @Override
-            public void onFailure(Call<ArticlesWithRetroFit> call, Throwable t) {
+            public void onFailure(Call<ArticlesWithRetroFit.RootTag> call, Throwable t) {
+                Timber.e("Error:"+t.getMessage());
 
-                    Timber.e("Error:"+t.getMessage());
             }
         });
 

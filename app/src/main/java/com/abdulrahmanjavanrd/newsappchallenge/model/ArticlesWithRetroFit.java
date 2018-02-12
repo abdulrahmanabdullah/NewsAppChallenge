@@ -197,20 +197,22 @@ public class ArticlesWithRetroFit {
         @SerializedName("body")
         List<BodyTagsToGetShortText> bodyTags;
 
+
         public List<BodyTagsToGetShortText> getBodyTags() {
             return bodyTags;
+        }
+
+        @Override
+        public String toString() {
+            return "BlocksTagToGetBodyTag{" +
+                    "bodyTags=" + bodyTags +
+                    '}';
         }
     }
 
     public static class BodyTagsToGetShortText {
         @SerializedName("bodyTextSummary")
         String bodyTextSummary;
-        @SerializedName("id")
-        String id;
-
-        public String getId() {
-            return id;
-        }
 
         public String getBodyTextSummary() {
             return bodyTextSummary;

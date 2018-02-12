@@ -19,15 +19,21 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+import timber.log.Timber;
+
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyHolder> {
 
     Context mContext ;
     List<ResultsTag> mResultsTags ;
 
+    public RecyclerAdapter(Context paramContext, List<ResultsTag> paramResultsTags) {
+        mContext = paramContext;
+        mResultsTags = paramResultsTags;
+    }
 
     @Override
     public MyHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new  MyHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.items,parent,false));
+        return new  MyHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.main_card,parent,false));
     }
 
     @Override
@@ -47,21 +53,27 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyHold
         // set summary text .. from BodyTagsToGet class ..
         //  inside this class method return list of BodyTagsToGetShortText,
         // Pass position for this class to create new object of BodyTagsToGetShortText,This Class contain summaryText .
-        BlocksTagToGetBodyTag blocksTag = currentObject.getBlocksTag();
-        BodyTagsToGetShortText bodyTags = blocksTag.getBodyTags().get(position);
-        holder.txvArticleSummary.setText(bodyTags.getBodyTextSummary());
-        //set publisher ...
-        // publisher exist inside TagToGetAuthor class
-        TagsToGetAuthor author = currentObject.getTagsList().get(position);
-        String authorName = author.getFirstName()+" "+author.getLastName();
-        holder.txvArticlePublisher.setText(authorName);
+        //TODO::Fix this error .IndexOutOfBoundException... DONE,solve it.
+         BlocksTagToGetBodyTag blocksTag = currentObject.getBlocksTag();
+         List<BodyTagsToGetShortText> bodyTags = blocksTag.getBodyTags();
+        holder.txvArticleSummary.setText(bodyTags.get(0).getBodyTextSummary());
+//        //set publisher ...
+//        // publisher exist inside TagToGetAuthor class
+        //TODO::Fix this error .IndexOutOfBoundException...
+        List<TagsToGetAuthor> tagsToGetAuthors =currentObject.getTagsList();
+        TagsToGetAuthor author = tagsToGetAuthors.get(0);
+//        TagsToGetAuthor author = currentObject.getTagsList().get(0);
+        Timber.v(author.getFirstName());
+//        String authorName = author.getFirstName()+" "+author.getLastName();
+//        holder.txvArticlePublisher.setText(authorName);
         // hide favorite icon.
         holder.favoriteButton.setVisibility(View.GONE);
     }
 
     @Override
-    public int getItemCount() {
-        return 0 ;
+    public int getItemCount()
+    {
+        return mResultsTags.size() ;
     }
 
     public static class MyHolder extends RecyclerView.ViewHolder{

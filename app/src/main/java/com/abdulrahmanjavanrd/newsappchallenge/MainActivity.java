@@ -15,10 +15,13 @@ import com.abdulrahmanjavanrd.newsappchallenge.fragments.PopularNewsFragment;
 import com.abdulrahmanjavanrd.newsappchallenge.fragments.SaveArticleInDataBase;
 import com.abdulrahmanjavanrd.newsappchallenge.view.MyPager;
 
+import timber.log.Timber;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Timber.v("app is lunched ");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolBar = findViewById(R.id.toolbar);
