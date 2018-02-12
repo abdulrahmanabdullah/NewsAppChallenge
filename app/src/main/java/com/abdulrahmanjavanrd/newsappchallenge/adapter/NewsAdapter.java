@@ -68,7 +68,7 @@ public class NewsAdapter extends BaseAdapter {
             holder.articleSection = convertView.findViewById(R.id.txv_article_section);
             holder.articlePublisher = convertView.findViewById(R.id.txv_article_publisher);
             holder.articleDate = convertView.findViewById(R.id.txv_article_date);
-            holder.favoriteEvent = convertView.findViewById(R.id.imageButton);
+            holder.favoriteEvent = convertView.findViewById(R.id.btn_favorite_icon);
             convertView.setTag(holder);
         }else
         {

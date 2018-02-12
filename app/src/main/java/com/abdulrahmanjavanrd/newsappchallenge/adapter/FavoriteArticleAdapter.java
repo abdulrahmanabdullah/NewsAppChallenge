@@ -39,7 +39,7 @@ public class FavoriteArticleAdapter extends CursorAdapter {
         TextView articleSection = view.findViewById(R.id.txv_article_section);
         TextView articleDate = view.findViewById(R.id.txv_article_date);
         TextView articleAuthor = view.findViewById(R.id.txv_article_publisher);
-        Button imageButton = view.findViewById(R.id.imageButton);
+        Button imageButton = view.findViewById(R.id.btn_favorite_icon);
 
 
         int imageIndex = cursor.getColumnIndex(ArticlesContract.FavoriteArticleEntery.COLUMN_NEWS_IMAGE);

@@ -26,8 +26,6 @@
             android:authorities="com.abdulrahmanjavanrd.newsappchallenge"
             android:name=".provider.ArticlesProvider"
             android:exported="false"/>
-
-        <activity android:name=".activites.SaveNewsActivity"/>
     </application>
 
 </manifest>

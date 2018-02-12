@@ -40,7 +40,7 @@ public class NewsCursorAdapter extends CursorAdapter {
         TextView articleSection = view.findViewById(R.id.txv_article_section);
         TextView articleDate = view.findViewById(R.id.txv_article_date);
         TextView aticlePublisher = view.findViewById(R.id.txv_article_publisher);
-        Button imageButton = view.findViewById(R.id.imageButton);
+        Button imageButton = view.findViewById(R.id.btn_favorite_icon);
 
 
         int _Iamge = cursor.getColumnIndex(ArticlesContract.NewArticlesEntery.COLUMN_NEWS_IMAGE);
