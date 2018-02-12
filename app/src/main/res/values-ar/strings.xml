@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">قاردين نيوز</string>
+    <string name="add_favorite_article">"تمت اضافتها الى المفضلة "</string>
+    <string name="remove_favorite_article">"ازالة من المفضلة "</string>
+    <string name="favorite_article">المفضلة</string>
+    <string name="last_news">اخر الاخبار</string>
+    <string name="most_read">"الاكثر قراءة "</string>
+</resources>

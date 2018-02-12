@@ -11,7 +11,7 @@
     <string name="add_favorite_article"> Add as Favorites</string>
     <string name="remove_favorite_article"> Unfavored</string>
     <string name="failed_inserted">Failed Insert new data</string>
-    <string name="most_read">poupler reading</string>
     <string name="favorite_article">Favorite news</string>
     <string name="last_news">last news</string>
+    <string name="most_read">most reading</string>
 </resources>

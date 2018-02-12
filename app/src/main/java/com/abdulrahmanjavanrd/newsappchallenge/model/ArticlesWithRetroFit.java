@@ -85,7 +85,7 @@ public class ArticlesWithRetroFit {
         String sectionId;
         @SerializedName("sectionName")
         String sectionName;
-        @SerializedName("wePublicationDate")
+        @SerializedName("webPublicationDate")
         String webPublicationDate;
         @SerializedName("webTitle")
         String webTitle;
@@ -131,25 +131,25 @@ public class ArticlesWithRetroFit {
             return webTitle;
         }
 
-        public String getWebUrl() {
-            return webUrl;
-        }
-
-        public String getApiUrl() {
-            return apiUrl;
-        }
-
-        public boolean isIshosted() {
-            return ishosted;
-        }
-
-        public String getPillarId() {
-            return pillarId;
-        }
-
-        public String getPillName() {
-            return pillName;
-        }
+//        public String getWebUrl() {
+//            return webUrl;
+//        }
+//
+//        public String getApiUrl() {
+//            return apiUrl;
+//        }
+//
+//        public boolean isIshosted() {
+//            return ishosted;
+//        }
+//
+//        public String getPillarId() {
+//            return pillarId;
+//        }
+//
+//        public String getPillName() {
+//            return pillName;
+//        }
 
         // return image for articles
         public FieldsTagToGetThumbnail getFields() {
@@ -202,12 +202,7 @@ public class ArticlesWithRetroFit {
             return bodyTags;
         }
 
-        @Override
-        public String toString() {
-            return "BlocksTagToGetBodyTag{" +
-                    "bodyTags=" + bodyTags +
-                    '}';
-        }
+
     }
 
     public static class BodyTagsToGetShortText {

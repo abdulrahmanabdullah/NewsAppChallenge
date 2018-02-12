@@ -15,6 +15,7 @@ import com.abdulrahmanjavanrd.newsappchallenge.model.ArticlesWithRetroFit.Result
 import com.abdulrahmanjavanrd.newsappchallenge.model.ArticlesWithRetroFit.FieldsTagToGetThumbnail;
 import com.abdulrahmanjavanrd.newsappchallenge.model.ArticlesWithRetroFit.BodyTagsToGetShortText;
 import com.abdulrahmanjavanrd.newsappchallenge.model.ArticlesWithRetroFit.BlocksTagToGetBodyTag;
+import com.abdulrahmanjavanrd.newsappchallenge.utilties.DivideSummaryText;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -47,7 +48,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyHold
         //set title .. from ResultTag ..
         holder.txvArticleTitle.setText(currentObject.getWebTitle());
         // set section
-        holder.txvArticleSetion.setText(currentObject.getSectionId());
+        holder.txvArticleSection.setText(currentObject.getSectionId());
         // set Date ..
         holder.txvArticleDate.setText(currentObject.getWebPublicationDate());
         // set summary text .. from BodyTagsToGet class ..
@@ -56,16 +57,24 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyHold
         //TODO::Fix this error .IndexOutOfBoundException... DONE,solve it.
          BlocksTagToGetBodyTag blocksTag = currentObject.getBlocksTag();
          List<BodyTagsToGetShortText> bodyTags = blocksTag.getBodyTags();
-        holder.txvArticleSummary.setText(bodyTags.get(0).getBodyTextSummary());
+         String summaryText = bodyTags.get(0).getBodyTextSummary();
+        holder.txvArticleSummary.setText(DivideSummaryText.dividTextToQuarter(summaryText));
 //        //set publisher ...
 //        // publisher exist inside TagToGetAuthor class
-        //TODO::Fix this error .IndexOutOfBoundException...
-        List<TagsToGetAuthor> tagsToGetAuthors =currentObject.getTagsList();
-        TagsToGetAuthor author = tagsToGetAuthors.get(0);
-//        TagsToGetAuthor author = currentObject.getTagsList().get(0);
-        Timber.v(author.getFirstName());
-//        String authorName = author.getFirstName()+" "+author.getLastName();
-//        holder.txvArticlePublisher.setText(authorName);
+        //TODO::Fix this error .IndexOutOfBoundException... Done, the error because some time the list is empty .
+        List<TagsToGetAuthor> tagsToGetAuthors =currentObject.getTagsList();// result = position which mean List of Tags
+        if (tagsToGetAuthors.size() == 0){
+           Timber.e("it's null list man .");
+           holder.txvArticlePublisher.setText("Unknown writer .");
+        }else{
+           String firstName = tagsToGetAuthors.get(0).getFirstName();
+           String lastName = tagsToGetAuthors.get(0).getLastName();
+           holder.txvArticlePublisher.setText(firstName+" "+lastName);
+        }
+
+        //set date ..
+        holder.txvArticleDate.setText(currentObject.getWebPublicationDate());
+        Timber.v("Date = "+currentObject.getWebPublicationDate());
         // hide favorite icon.
         holder.favoriteButton.setVisibility(View.GONE);
     }
@@ -80,7 +89,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyHold
         ImageView mImageView ;
         TextView txvArticleTitle ;
         TextView txvArticleSummary;
-        TextView txvArticleSetion ;
+        TextView txvArticleSection;
         TextView txvArticleDate ;
         TextView txvArticlePublisher ;
         Button favoriteButton ;
@@ -89,7 +98,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyHold
             mImageView = view.findViewById(R.id.article_image);
             txvArticleTitle = view.findViewById(R.id.txv_article_Title);
             txvArticleSummary = view.findViewById(R.id.txv_article_summary);
-            txvArticleSetion = view.findViewById(R.id.txv_article_section);
+            txvArticleSection = view.findViewById(R.id.txv_article_section);
             txvArticleDate = view.findViewById(R.id.txv_article_date);
             txvArticlePublisher = view.findViewById(R.id.txv_article_publisher);
             favoriteButton = view.findViewById(R.id.btn_favorite_icon);
